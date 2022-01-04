@@ -21,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int tab = 0;
-  var file;
+  late File file;
   
   @override
   Widget build(BuildContext context) {

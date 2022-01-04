@@ -11,6 +11,10 @@ ThemeData theme = ThemeData(
       fontSize: 25.0,
     ),
     actionsIconTheme: IconThemeData( color: Colors.black ),
+    // https://stackoverflow.com/questions/51508257/how-to-change-the-appbar-back-button-color
+    iconTheme: IconThemeData(
+      color: Colors.black
+    )
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     elevation: 1,

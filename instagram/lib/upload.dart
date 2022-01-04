@@ -9,12 +9,22 @@ class Upload extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Instagram'),
+        centerTitle: false,
+      ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text('이미지 업로드 화면'),
-          Image.file(file),
+          SizedBox(
+            width: double.infinity,
+            height: 300.0,
+            child: Image.file(
+              file,
+              fit: BoxFit.cover,
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: (){
