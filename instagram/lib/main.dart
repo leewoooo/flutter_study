@@ -1,7 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/home.dart';
 import 'package:instagram/style.dart' as style;
+import 'package:instagram/upload.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 void main() {
   runApp(MaterialApp(
@@ -19,6 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int tab = 0;
+  var file;
   
   @override
   Widget build(BuildContext context) {
@@ -29,8 +32,21 @@ class _MyAppState extends State<MyApp> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add_box_outlined),
-            onPressed: (){
+            onPressed: () async{
+              final ImagePicker picker = ImagePicker();
+              final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+              if(pickedFile != null){
+                setState(() {
+                  file = File(pickedFile.path);
+                });
+              }
 
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Upload(file: file),
+                )
+              );
             },
             iconSize: 30.0,
           ),
