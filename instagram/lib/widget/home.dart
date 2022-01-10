@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/domain/article.dart';
+import 'package:instagram/widget/profile.dart';
 
 
 class HomeTab extends StatelessWidget {
@@ -11,12 +12,12 @@ class HomeTab extends StatelessWidget {
     return (
       ListView.builder(
         itemCount: articles.length,
-        itemBuilder: (ctx, i) => renderingArticle(articles[i]),
+        itemBuilder: (ctx, i) => renderingArticle(context, articles[i]),
       )
     );
   }
 
-  Column renderingArticle(Article article){
+  Column renderingArticle(BuildContext context, Article article){
     return Column(
       children: [
         article.image,
@@ -31,7 +32,25 @@ class HomeTab extends StatelessWidget {
               Text('Date: ${article.date}'),
               Text('Content: ${article.content}'),
               Text('Liked: ${article.liked.toString()}'),
-              Text('User: ${article.user}'),
+              GestureDetector(
+                child: Text('User: ${article.user}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => const Profile(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+                        SlideTransition(
+                          position: Tween(
+                            begin: const Offset(1.0,0.0),
+                            end: Offset.zero
+                          ).animate(animation),
+                          child: child,
+                        ),
+                    )
+                  );
+                },
+              ),
             ],
           ),
         )

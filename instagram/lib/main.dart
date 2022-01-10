@@ -1,21 +1,1 @@
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp() => const MaterialApp(
-    home: MyApp(),
-  );
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
+import 'dart:io';import 'package:flutter/material.dart';import 'package:http/http.dart' as http;import 'package:image_picker/image_picker.dart';import 'package:instagram/data/article_data.dart';import 'package:instagram/domain/article.dart';import 'package:instagram/store/profile.dart';import 'package:instagram/style/style.dart';import 'package:instagram/widget/article_register.dart';import 'package:instagram/widget/home.dart';import 'package:provider/provider.dart';void main() {  runApp(MultiProvider(    providers: [      ChangeNotifierProvider(create: (context) => Store()),      ChangeNotifierProvider(create: (context) => ProfileStore(),)    ],    child: MaterialApp(      theme: returnMainThemeData(),      home: const MyApp(),    ),  ));}class Store extends ChangeNotifier {  String name = 'leewoooo';  int follower = 0;  void setName(String name) {    this.name = name;    notifyListeners();  }  void upFollower() {    follower++;    notifyListeners();  }  void downFollower() {    follower--;    notifyListeners();  }}class MyApp extends StatefulWidget {  const MyApp({Key? key}) : super(key: key);  @override  _MyAppState createState() => _MyAppState();}class _MyAppState extends State<MyApp> {  int _selectdIndex = 0;  List<Article> articles = [];  @override  void initState() {    super.initState();    getArticles();  }  void getArticles() async {    ArticleData articleData =        ArticleData(serverURL: 'https://codingapple1.github.io/app/data.json');    List<Article> fetchedArticles =        await articleData.fetchArticles(http.Client());    setState(() {      articles = fetchedArticles;    });  }  void addArticlesFirst(Article article) {    setState(() {      articles.insert(0, article);    });  }  @override  Widget build(BuildContext context) {    return Scaffold(      appBar: AppBar(        title: const Text('Instagram'),        actions: [          IconButton(            icon: const Icon(Icons.add_box_outlined),            onPressed: () async {              ImagePicker picker = ImagePicker();              final XFile? selected =                  await picker.pickImage(source: ImageSource.gallery);              if (selected == null) {                return;              }              Navigator.push(                  context,                  MaterialPageRoute(                      builder: (context) => RegisterArticleRoute(                            addArticleFirst: addArticlesFirst,                            id: articles.length,                            file: File(selected.path),                          )));            },          )        ],      ),      body: [HomeTab(articles: articles), const Text('Shop')][_selectdIndex],      bottomNavigationBar: Container(        // https://stackoverflow.com/questions/58759652/flutter-add-a-black-outline-to-top-of-bottomnavigationbar        decoration: const BoxDecoration(          border: Border(top: BorderSide(color: Colors.black, width: 0.5)),        ),        // https://security-nanglam.tistory.com/484        child: BottomNavigationBar(          currentIndex: _selectdIndex,          onTap: (int value) {            setState(() {              _selectdIndex = value;            });          },          items: const [            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),            BottomNavigationBarItem(                icon: Icon(Icons.shopping_bag), label: 'Shop'),          ],        ),      ),    );  }}
