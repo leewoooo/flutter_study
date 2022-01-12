@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_study/src/home.dart';
+import 'package:provider_study/src/provider/bottom_navigation_provider.dart';
 import 'package:provider_study/src/provider/count_provider.dart';
+import 'package:provider_study/src/provider/movie_provider.dart';
 
-void main() {
+void main() async{
+  await dotenv.load(fileName: "./.env");
   runApp(const MyApp());
 }
 
@@ -18,9 +22,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChangeNotifierProvider(
-        create: (BuildContext context) => CountProvider(),
-        child: const Home(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => CountProvider()),
+          ChangeNotifierProvider(create: (context) => BottomNavigationProvider()),
+          ChangeNotifierProvider(create: (context) => MovieProvider())
+        ],
+        child: Home(),
       ),
     );
   }
