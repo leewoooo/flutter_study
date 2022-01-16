@@ -8,7 +8,7 @@ ThemeData mainTheme(){
         color: Colors.black,
         opacity: 1.0
       ),
-      // centerTitle: false,
+      centerTitle: false,
       iconTheme: IconThemeData(
        color: Colors.black,
        opacity: 1.0

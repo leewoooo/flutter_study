@@ -1,4 +1,5 @@
 import 'package:getx_notepad/src/dto/create_memo_reqeust.dart';
+import 'package:getx_notepad/src/dto/update_memo_request.dart';
 import 'package:nanoid/nanoid.dart' as nonoid;
 
 class Memo{
@@ -16,13 +17,23 @@ class Memo{
     required this.lastModifiedAt
   });
 
-  factory Memo.createRequest(CreateMemoRequest req){
+  factory Memo.fromCreateRequest(CreateMemoRequest req){
     return Memo(
         id: nonoid.nanoid(),
         title: req.title,
         content: req.content,
         createdAt: DateTime.now(),
         lastModifiedAt: DateTime.now(),
+    );
+  }
+
+  factory Memo.fromUpdateRequest(UpdateMemoReqeust req){
+    return Memo(
+      id: req.id,
+      title: req.title,
+      content: req.content,
+      createdAt: req.createdAt,
+      lastModifiedAt: req.lastModifiedAt
     );
   }
 }

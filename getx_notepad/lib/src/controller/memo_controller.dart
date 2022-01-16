@@ -25,4 +25,9 @@ class MemoController extends GetxController{
     _currentDetail = index;
     update();
   }
+
+  updateMemo(int index,Memo memo){
+    memos[index] = memo;
+    update();
+  }
 }

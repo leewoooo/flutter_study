@@ -9,35 +9,31 @@ class Register extends StatelessWidget {
   Register({Key? key, required}) : super(key: key);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String title = '';
-  String content = '';
+  late final String title;
+  late final String content;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('새 메모'),
-        centerTitle: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
               // validate
               if (formKey.currentState!.validate()) {
-                // save where state
                 formKey.currentState!.save();
+
                 // add New Memo
-                Memo newMemo = Memo.createRequest(CreateMemoRequest(
-                    title: title,
-                    content:content
+                Get.find<MemoController>().addMemo(
+                  Memo.fromCreateRequest(
+                    CreateMemoRequest( title: title, content:content)
                   )
                 );
-                Get.find<MemoController>().addMemo(newMemo);
                 // navigator back
                 Get.back();
-                return;
               }
-              return;
             },
           ),
         ],

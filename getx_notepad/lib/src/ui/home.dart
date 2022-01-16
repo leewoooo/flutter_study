@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_notepad/src/controller/memo_controller.dart';
 import 'package:getx_notepad/src/model/memo.dart';
 import 'package:getx_notepad/src/ui/memo_detail.dart';
-import 'package:getx_notepad/src/ui/register.dart';
+import 'package:getx_notepad/src/ui/memo_register.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatelessWidget {
@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
             height: 10.0,
           ),
           Text(
-              '마지막 수정일 : ${DateFormat('2012-02-27 13:27:00').format(memo.lastModifiedAt).toString()}')
+              '마지막 수정일 : ${DateFormat('yyyy-MM-dd HH:mm:ss a').format(memo.lastModifiedAt).toString()}')
         ],
       ),
     );

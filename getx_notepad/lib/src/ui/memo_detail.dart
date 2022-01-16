@@ -24,26 +24,7 @@ class MemoDetail extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              Get.defaultDialog(
-                title: 'Update',
-                content: Column(
-
-                ),
-                actions: [
-                  ElevatedButton(
-                    child: Text('Update'),
-                    onPressed: () {
-
-                    },
-                  ),
-                  ElevatedButton(
-                    child: Text('Cancel'),
-                    onPressed: () {
-
-                    },
-                  )
-                ]
-              );
+              Get.to(() => MemoUpdate(), arguments: memo);
             },
           ),
           TextButton(
@@ -89,8 +70,7 @@ class MemoDetail extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            Text(
-                '마지막 수정일 : ${DateFormat('2012-02-27 13:27:00').format(memo.lastModifiedAt).toString()}'),
+            Text('마지막 수정일 : ${DateFormat('yyyy-MM-dd HH:mm:ss a').format(memo.lastModifiedAt).toString()}'),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

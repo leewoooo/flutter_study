@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget rederTextFormField({
-  required String label,
-  required FormFieldSetter onSaved,
-  required FormFieldValidator validator
-}) {
+Widget rederTextFormField(
+    {String? initialValue,
+    required String label,
+    required FormFieldSetter onSaved,
+    required FormFieldValidator validator}) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -18,7 +18,9 @@ Widget rederTextFormField({
           onSaved: onSaved,
           validator: validator,
           maxLines: null,
+          initialValue: initialValue ?? '',
         ),
         const SizedBox(height: 15.0),
-      ]);
+      ]
+  );
 }
