@@ -7,4 +7,6 @@ flutter study code archive
 1강 끝(12월31일)
 2강 시작(2강 reset: 1월 6일)
 
-중간 GetX notepad 화이팅
+중간 GetX notepad
+
+Dart 문법
